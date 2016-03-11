@@ -1,18 +1,11 @@
 #### Log in module ###
 USER <- reactiveValues(Logged = Logged)
 
-passwdInput <- function(inputId, label) {
-  tagList(
-    tags$label(label),
-    tags$input(id = inputId, type="password", value="")
-  )
-}
-
 output$uiLogin <- renderUI({
   if (USER$Logged == FALSE) {
     wellPanel(
-      textInput("userName", "User Name:"),
-      passwdInput("passwd", "Pass word:"),
+      textInput("userName", "Username:"),
+      passwordInput("passwd", "Password:"),
       br(),
       actionButton("Login", "Log in")
     )
