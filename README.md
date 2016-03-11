@@ -1,2 +1,1 @@
-# shinypass
-:lock: Password protected demo shiny app
+Based on https://gist.github.com/withr/9001831
