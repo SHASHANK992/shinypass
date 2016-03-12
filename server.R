@@ -1,4 +1,5 @@
 library(shiny)
+library(shinyjs)
 library(shinyURL)
 
 credentials <- list("test" = "202cb962ac59075b964b07152d234b70")
@@ -12,19 +13,21 @@ shinyServer(function(input, output) {
     if (isTRUE(credentials[[input$.username]]==input$.password)){
       USER$Logged <- TRUE
     } else {
+      show("message")
       output$message = renderText("Invalid user name or password")
+      delay(2000, hide("message", anim = TRUE, animType = "fade"))
     }
   })
   
   output$app = renderUI(
     if (!isTRUE(USER$Logged)) {
       fluidRow(column(width=4, offset = 4,
-        wellPanel(
+        wellPanel(id = "login",
           textInput(".username", "Username:"),
           passwordInput(".password", "Password:"),
-          actionButton(".login", "Log in"),
-          textOutput("message")
-        )
+          div(actionButton(".login", "Log in"), style="text-align: center;")
+        ),
+        textOutput("message")
       ))
     } else {
         # Sidebar with a slider input for number of bins
